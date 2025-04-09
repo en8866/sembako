@@ -2,64 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\sembako;
+use App\Models\Sembako;
 use Illuminate\Http\Request;
 
 class SembakoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $data = Sembako::all();
+        return view('sembako.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('sembako.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'kategori' => 'required',
+            'stok' => 'required|integer',
+            'harga' => 'required|numeric',
+            'satuan' => 'required',
+        ]);
+
+        Sembako::create($request->all());
+        return redirect()->route('sembako.index')->with('success', 'Data berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(sembako $sembako)
+    public function edit($id)
     {
-        //
+        $item = Sembako::findOrFail($id);
+        return view('sembako.edit', compact('item'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(sembako $sembako)
+    public function update(Request $request, $id)
     {
-        //
+        $item = Sembako::findOrFail($id);
+        $item->update($request->all());
+        return redirect()->route('sembako.index')->with('success', 'Data berhasil diupdate');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, sembako $sembako)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(sembako $sembako)
-    {
-        //
+        $item = Sembako::findOrFail($id);
+        $item->delete();
+        return redirect()->route('sembako.index')->with('success', 'Data berhasil dihapus');
     }
 }
+
