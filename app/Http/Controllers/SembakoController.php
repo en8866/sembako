@@ -19,18 +19,18 @@ class SembakoController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'kategori' => 'required',
-            'stok' => 'required|integer',
-            'harga' => 'required|numeric',
-            'satuan' => 'required',
-        ]);
+{
+    $validated = $request->validate([
+        'nama_barang' => 'required|string|max:255',
+        'jumlah_barang' => 'required|integer|min:0',
+        'harga_barang' => 'required|numeric|min:0',
+        'satuan' => 'required|string',
+    ]);
 
-        Sembako::create($request->all());
-        return redirect()->route('sembako.index')->with('success', 'Data berhasil ditambahkan');
-    }
+    Sembako::create($validated);
+
+    return redirect()->route('sembako.index')->with('success', 'Data sembako berhasil ditambahkan!');
+}
 
     public function edit($id)
     {

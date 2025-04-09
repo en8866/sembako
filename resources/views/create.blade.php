@@ -20,16 +20,13 @@
         @csrf
 
         <label>Nama Barang:</label><br>
-        <input type="text" name="nama" required><br><br>
+        <input type="text" name="nama_barang" required><br><br>
 
-        <label>Kategori:</label><br>
-        <input type="text" name="kategori" required><br><br>
+        <label>Jumlah Barang:</label><br>
+        <input type="number" name="jumlah_barang" required><br><br>
 
-        <label>Stok:</label><br>
-        <input type="number" name="stok" required><br><br>
-
-        <label>Harga:</label><br>
-        <input type="number" name="harga" step="0.01" required><br><br>
+        <label>Harga Barang:</label><br>
+        <input type="number" name="harga_barang" step="0.01" required><br><br>
 
         <label>Satuan:</label><br>
         <select name="satuan" required>
